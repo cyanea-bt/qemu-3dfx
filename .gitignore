@@ -1,6 +1,9 @@
 /build/**/*
 /wrappers/*/build/**/*
+
 /qemu-6.*
 /qemu-7.*
 /qemu-8.*
 /qemu-9.*
+
+/qemu-*-patched
