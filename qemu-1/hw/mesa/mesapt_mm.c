@@ -27,7 +27,7 @@
 
 #include "mesagl_impl.h"
 
-#define DEBUG_MESAPT
+#undef DEBUG_MESAPT
 
 #define MESAPT(obj) \
     OBJECT_CHECK(MesaPTState, (obj), TYPE_MESAPT)
@@ -38,8 +38,15 @@
 #define DPRINTF_COND(cond,fmt, ...) \
     if (cond) { fprintf(stderr, "mesapt: " fmt "\n" , ## __VA_ARGS__); }
 #else
-#define DPRINTF(fmt, ...)
-#define DPRINTF_COND(cond,fmt, ...)
+static int ignoreDebug(bool cond, const char *format, ...) {
+    (void)cond;
+    (void)format;
+    return 0;
+}
+#define DPRINTF(fmt, ...) \
+    ignoreDebug(0, fmt, ## __VA_ARGS__);
+#define DPRINTF_COND(cond,fmt, ...) \
+    ignoreDebug(cond, fmt, ## __VA_ARGS__);
 #endif
 
 

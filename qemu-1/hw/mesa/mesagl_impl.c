@@ -23,13 +23,18 @@
 
 #include "mesagl_impl.h"
 
-#define DEBUG_MESAGL
+#undef DEBUG_MESAGL
 
 #ifdef DEBUG_MESAGL
 #define DPRINTF(fmt, ...) \
     do { fprintf(stderr, "mgl_trace: " fmt "\n" , ## __VA_ARGS__); } while(0)
 #else
-#define DPRINTF(fmt, ...)
+static int ignoreDebug(const char *format, ...) {
+    (void)format;
+    return 0;
+}
+#define DPRINTF(fmt, ...) \
+    ignoreDebug(fmt, ## __VA_ARGS__);
 #endif
 
 #if defined(CONFIG_LINUX) || defined(CONFIG_DARWIN)

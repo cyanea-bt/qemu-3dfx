@@ -23,13 +23,18 @@
 
 #include "glide2x_impl.h"
 
-#define DEBUG_GLIDE2X
+#undef DEBUG_GLIDE2X
 
 #ifdef DEBUG_GLIDE2X
 #define DPRINTF(fmt, ...) \
     do { fprintf(stderr, "wr2x_trace: " fmt "\n", ## __VA_ARGS__); } while(0)
 #else
-#define DPRINTF(fmt, ...)
+static int ignoreDebug(const char *format, ...) {
+    (void)format;
+    return 0;
+}
+#define DPRINTF(fmt, ...) \
+    ignoreDebug(fmt, ## __VA_ARGS__);
 #endif
 
 #if defined(CONFIG_LINUX) || defined(CONFIG_DARWIN)

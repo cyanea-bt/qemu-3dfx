@@ -29,7 +29,7 @@
 #include "gllstbuf.h"
 #include "vertex3x.h"
 
-#define DEBUG_GLIDEPT
+#undef DEBUG_GLIDEPT
 
 #define TYPE_GLIDELFB "glidelfb"
 #define GLIDELFB(obj) \
@@ -44,8 +44,15 @@
     do { static int warn; if (cond && !warn) { warn = 1; \
          fprintf(stderr, "     *WARN* " fmt "\n", ## __VA_ARGS__); } } while(0)
 #else
-#define DPRINTF(fmt, ...)
-#define WARNONCE(cond, fmt, ...)
+static int ignoreDebug(bool cond, const char *format, ...) {
+    (void)cond;
+    (void)format;
+    return 0;
+}
+#define DPRINTF(fmt, ...) \
+    ignoreDebug(0, fmt, ## __VA_ARGS__);
+#define WARNONCE(cond, fmt, ...) \
+    ignoreDebug(cond, fmt, ## __VA_ARGS__);
 #endif
 
 typedef struct GlideLfbState
