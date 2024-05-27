@@ -2396,7 +2396,8 @@ static void mesapt_write(void *opaque, hwaddr addr, uint64_t val, unsigned size)
                             DPRINTF("..warped %08x-%08x", fifoptr[1] & 0xFFFFF000U, ptm);
                             fifoptr[1] = (fifoptr[1] & 0xFFFU) | ptm;
                         }
-                        DPRINTF_COND((dataptr[1] > 1), "..reset refcnt %04x", dataptr[1]--);
+                        uint32_t tempData = dataptr[1]--;
+                        DPRINTF_COND((dataptr[1] > 1), "..reset refcnt %04x", tempData);
                     }
                 } while(0);
                 break;

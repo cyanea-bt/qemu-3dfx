@@ -184,8 +184,9 @@ static void vgLfbFlush(GlidePTState *s)
     uint8_t *gLfb = ((s->FEnum == FEnum_grLfbUnlock) && (s->arg[1] & 0xFEU))?
         (s->glfb_ptr + (((s->lfb_h > 0x300)? 0x300:s->lfb_h) * 0x800)):s->glfb_ptr;
     uint8_t *hLfb = s->lfbDev->lfbPtr[1];
-    if (hLfb == 0)
+    if (hLfb == 0){
         DPRINTF("WARN: LFB write pointer is NULL");
+    }
     else {
         for (int y = 0; y < s->lfb_h; y++) {
             memcpy(hLfb, gLfb, xwidth);
