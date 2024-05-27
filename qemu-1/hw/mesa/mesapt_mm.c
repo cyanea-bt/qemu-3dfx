@@ -1937,7 +1937,7 @@ static void processFRet(MesaPTState *s)
                 s->FRet = s->szUsedBuf + 1;
             }
             DPRINTF_COND(MGL_BUFO_TRACE, "Gpa %p Hva %p target %04x offst %08x range %08x lvl %d",
-                (void *)(s->FRet & (uint64_t)~(1)), (void *)s->BufObj->hva, s->arg[0], s->arg[1], s->arg[2], s->BufObj->lvl);
+                (void *)(s->FRet & (uintptr_t)~(1)), (void *)s->BufObj->hva, s->arg[0], s->arg[1], s->arg[2], s->BufObj->lvl);
             break;
         case FEnum_glUnmapBuffer:
         case FEnum_glUnmapBufferARB:
